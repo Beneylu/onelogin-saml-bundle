@@ -193,11 +193,11 @@ class SamlAuthenticator implements AuthenticatorInterface, AuthenticationEntryPo
 
     protected function extractIdentifier(Auth $oneLoginAuth, array $attributes): string
     {
-        if (empty($this->options['identifier_attribute'])) {
+        if (empty($this->options['identifier_attribute']) && !isset($oneLoginAuth->getSettings()->getSecurityData()['identifier_attribute'])) {
             return $oneLoginAuth->getNameId();
         }
 
-        $identifierAttribute = (string) $this->options['identifier_attribute'];
+        $identifierAttribute = isset($this->options['identifier_attribute']) ? (string) $this->options['identifier_attribute'] : $oneLoginAuth->getSettings()->getSecurityData()['identifier_attribute'];
         if (!\array_key_exists($identifierAttribute, $attributes)) {
             throw new \RuntimeException('Attribute "'.$identifierAttribute.'" not found in SAML data.');
         }

@@ -178,6 +178,7 @@ class Configuration implements ConfigurationInterface
                                             ->thenInvalid('invalid value.')
                                         ->end()
                                     ->end()
+                                    ->variableNode('identifier_attribute')->end()
                                     ->booleanNode('wantXMLValidation')->end()
                                     ->booleanNode('relaxDestinationValidation')->end()
                                     ->booleanNode('destinationStrictlyMatches')->end()
